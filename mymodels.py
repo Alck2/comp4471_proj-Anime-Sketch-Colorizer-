@@ -351,7 +351,7 @@ class Sketch2Color(nn.Module):
         if pretrained:
             print('Loading pretrained {0} model...'.format('Sketch2Color'), end=' ')
             assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-            checkpoint = torch.load('./checkpoint/edge2color/ckpt_1.pth')
+            checkpoint = torch.load('./checkpoint/edge2color/ckpt17_2000.pth') # change this to a new saved pytorch weights
             self.load_state_dict(checkpoint['netG'], strict=True)
             print("Done!")
         else:
