@@ -5,6 +5,7 @@ import torchvision
 import opencv_transforms.functional as FF
 from torchvision import datasets
 from PIL import Image
+import random
 
 def color_cluster(img, nclusters=9):
     """
@@ -23,22 +24,28 @@ def color_cluster(img, nclusters=9):
         K-means clustering algorithm is quite computaionally intensive.
         Thus, before extracting dominant colors, the input images are resized to x0.25 size.
     """
+#print("")
+    #print("color hint")
     img_size = img.shape
-    small_img = cv2.resize(img, None, fx=0.25, fy=0.25, interpolation=cv2.INTER_AREA)
-    sample = small_img.reshape((-1, 3))
-    sample = np.float32(sample)
-    criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 10, 1.0)
-    flags = cv2.KMEANS_PP_CENTERS
-    
-    _, _, centers = cv2.kmeans(sample, nclusters, None, criteria, 10, flags)
-    centers = np.uint8(centers)
+    temp = img.copy()
+    test_hint = img.copy()
+    temp = temp[:,:512,:]
+    for i in range(30):
+        randx = random.randint(0,450)
+        randy = random.randint(0,450)
+        temp[randx:randx+70,randy:randy+70] = 255
+    temp = cv2.blur(temp,(50,50)) 
+    #plt.imshow(temp)
+
     color_palette = []
     
-    for i in range(0, nclusters):
-        dominant_color = np.zeros(img_size, dtype='uint8')
-        dominant_color[:,:,:] = centers[i]
-        color_palette.append(dominant_color)
-    
+    #for i in range(0, nclusters):
+    #    dominant_color = np.zeros(img_size, dtype='uint8')
+    #    #dominant_color[:,:,:] = centers[i]
+    #    dominant_color[:,:,:] = 0
+    #    color_palette.append(dominant_color)
+    #color_palette.append(temp)
+    color_palette.append(temp)
     return color_palette
 
 class PairImageFolder(datasets.ImageFolder):   

@@ -408,5 +408,9 @@ def weights_init(model):
     elif classname.find('GroupNorm') != -1:
         nn.init.normal_(model.weight.data, 1.0, 0.02)
         nn.init.constant_(model.bias.data, 0)
+    # elif classname.find('encoder_block') != -1:
+    #     nn.init.normal_(model.weight.data, 0.0, 0.02)
+    # elif classname.find('decoder_block') != -1:
+    #     nn.init.normal_(model.weight.data, 0.0, 0.02)
     else:
         pass
