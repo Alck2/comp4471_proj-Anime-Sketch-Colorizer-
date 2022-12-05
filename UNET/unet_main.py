@@ -27,7 +27,7 @@ class UNet(nn.Module):
         else:
             print('Loading pretrained {0} model...'.format('Sketch2Color'), end=' ')
             assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-            checkpoint = torch.load('./checkpoint/edge2color/ckpt25_0.pth') # change this to a new saved pytorch weights
+            checkpoint = torch.load('./checkpoint/edge2color/ckpt60_4999.pth') # change this to a new saved pytorch weights
             self.load_state_dict(checkpoint['netG'], strict=True)
             print("Done!")
     def forward(self, inputs):

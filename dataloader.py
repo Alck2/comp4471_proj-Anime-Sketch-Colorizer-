@@ -33,7 +33,7 @@ def color_cluster(img, nclusters=9):
     for i in range(30):
         randx = random.randint(0,450)
         randy = random.randint(0,450)
-        temp[randx:randx+70,randy:randy+70] = 255
+        temp[randx:randx+25,randy:randy+25] = 255
     temp = cv2.blur(temp,(50,50)) 
     #plt.imshow(temp)
 
